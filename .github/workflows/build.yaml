@@ -1,0 +1,41 @@
+name: winbuild
+on: [push]
+
+jobs:
+  job:
+    name: ${{ matrix.os }}-hosted-pure
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        include:
+          - os: windows-latest
+            triplet: x64-windows
+          - os: ubuntu-latest
+            triplet: x64-linux
+          - os: macos-latest
+            triplet: x64-osx
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          repository: Microsoft/vcpkg
+      
+      # On Windows runners, let's ensure to have the Developer Command Prompt environment setup correctly. As used here the Developer Command Prompt created is targeting x64 and using the default the Windows SDK.
+      - uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Install qt5-declarative
+        if: matrix.triplet == 'x64-windows'
+        run: |
+          subst V: ${{ github.workspace }} 
+          cd V:
+          .\bootstrap-vcpkg.bat
+          .\vcpkg.exe install --triplet ${{ matrix.triplet }} qt5-declarative
+
+      - name: Install qt5-declarative
+        if: matrix.triplet != 'x64-windows'
+        run: |
+          pwd
+          ./bootstrap-vcpkg.sh
+          ./vcpkg install --triplet ${{ matrix.triplet }} qt5-declarative
