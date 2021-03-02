@@ -47,6 +47,9 @@ jobs:
         if: matrix.triplet != 'x64-windows'
         run: |
           ./bootstrap-vcpkg.sh
+          ./vcpkg install --triplet ${{ matrix.triplet }} qt5-svg
+          rm -r -fo downloads
+          rm -r -fo buildtrees
           ./vcpkg install --triplet ${{ matrix.triplet }} qt5-declarative
           
       - name: Debug x64-osx
