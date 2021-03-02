@@ -28,8 +28,8 @@ jobs:
       - name: Install qt5-declarative
         if: matrix.triplet == 'x64-windows'
         run: |
-          subst V: ${{ github.workspace }} 
-          cd V:
+          mv ${{ github.workspace }} C:\vcpkg
+          cd C:\vcpkg
           .\bootstrap-vcpkg.bat
           .\vcpkg.exe install --triplet ${{ matrix.triplet }} qt5-declarative
 
@@ -50,8 +50,6 @@ jobs:
           echo $CPATH
           ./bootstrap-vcpkg.sh
           ./vcpkg install --triplet ${{ matrix.triplet }} qt5-svg
-          rm -r -fo downloads
-          rm -r -fo buildtrees
           ./vcpkg install --triplet ${{ matrix.triplet }} qt5-declarative
           
       - name: Debug x64-osx
