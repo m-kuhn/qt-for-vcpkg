@@ -36,7 +36,7 @@ jobs:
       - name: Install ubuntu build deps
         if: matrix.triplet == 'x64-linux'
         run: |
-          sudo apt-get install libx11-dev libmesa-dev libxi-dev libxext-dev
+          sudo apt-get install libx11-dev libxi-dev libxext-dev
 
       - name: Install qt5-declarative
         if: matrix.triplet != 'x64-windows'
