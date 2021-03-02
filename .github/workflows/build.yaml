@@ -28,7 +28,7 @@ jobs:
       - name: Install qt5-declarative
         if: matrix.triplet == 'x64-windows'
         run: |
-          mv ${{ github.workspace }} C:\vcpkg
+          git clone https://github.com/microsoft/vcpkg.git C:\vcpkg
           cd C:\vcpkg
           .\bootstrap-vcpkg.bat
           .\vcpkg.exe install --triplet ${{ matrix.triplet }} qt5-declarative
