@@ -38,6 +38,11 @@ jobs:
         run: |
           sudo apt-get install libx11-dev libxi-dev libxext-dev
 
+      - name: Install osx build deps
+        if: matrix.triplet == 'x64-osx'
+        run: |
+          brew install automake
+
       - name: Install qt5-declarative
         if: matrix.triplet != 'x64-windows'
         run: |
