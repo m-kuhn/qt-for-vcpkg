@@ -49,3 +49,9 @@ jobs:
         run: |
           cat /Users/runner/work/qt-for-vcpkg/qt-for-vcpkg/buildtrees/fontconfig/autoconf-x64-osx-out.log
           cat /Users/runner/work/qt-for-vcpkg/qt-for-vcpkg/buildtrees/fontconfig/autoconf-x64-osx-err.log
+
+      - name: Debug
+        if: matrix.triplet == 'x64-windows'
+        run: |
+          cat "V:\buildtrees\qt5-declarative\package-build-x64-windows-dbg-out.log"
+          cat "V:\buildtrees\qt5-declarative\package-build-x64-windows-dbg-err.log"
