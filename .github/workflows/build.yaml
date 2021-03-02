@@ -42,10 +42,12 @@ jobs:
         if: matrix.triplet == 'x64-osx'
         run: |
           brew install automake
+          export CPATH=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include
 
       - name: Install qt5-declarative
         if: matrix.triplet != 'x64-windows'
         run: |
+          echo $CPATH
           ./bootstrap-vcpkg.sh
           ./vcpkg install --triplet ${{ matrix.triplet }} qt5-svg
           rm -r -fo downloads
