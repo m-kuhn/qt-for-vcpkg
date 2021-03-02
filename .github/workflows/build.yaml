@@ -41,6 +41,11 @@ jobs:
       - name: Install qt5-declarative
         if: matrix.triplet != 'x64-windows'
         run: |
-          pwd
           ./bootstrap-vcpkg.sh
           ./vcpkg install --triplet ${{ matrix.triplet }} qt5-declarative
+          
+      - name: Debug
+        if: matrix.triplet == 'x64-osx'
+        run: |
+          cat /Users/runner/work/qt-for-vcpkg/qt-for-vcpkg/buildtrees/fontconfig/autoconf-x64-osx-out.log
+          cat /Users/runner/work/qt-for-vcpkg/qt-for-vcpkg/buildtrees/fontconfig/autoconf-x64-osx-err.log
