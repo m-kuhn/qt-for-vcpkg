@@ -18,6 +18,13 @@ jobs:
             triplet: x64-osx
 
     steps:
+      - name: Show space before build
+        run: Get-PSDrive
+
+      - name: Check LongPathsEnabled
+        run: |
+          (Get-ItemProperty "HKLM:System\CurrentControlSet\Control\FileSystem").LongPathsEnabled
+          
       - uses: actions/checkout@v2
         with:
           repository: Microsoft/vcpkg
@@ -58,8 +65,6 @@ jobs:
           cat /Users/runner/work/qt-for-vcpkg/qt-for-vcpkg/buildtrees/fontconfig/autoconf-x64-osx-out.log
           cat /Users/runner/work/qt-for-vcpkg/qt-for-vcpkg/buildtrees/fontconfig/autoconf-x64-osx-err.log
 
-      - name: Debug x64-windows
-        if: ${{ always() }}
-        run: |
-          cat "V:\buildtrees\qt5-declarative\package-build-x64-windows-dbg-out.log"
-          cat "V:\buildtrees\qt5-declarative\package-build-x64-windows-dbg-err.log"
+      - name: Show space after build
+        if: always()
+        run: Get-PSDrive
